@@ -1,0 +1,19 @@
+[project]
+name = "upscaler-filename"
+description = "A ComfyUI custom node that names saved outputs after the selected upscale model."
+version = "1.0.0"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = []
+classifiers = [
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Repository = "https://github.com/giusparsifal/ComfyUI-Upscaler-Filename"
+Documentation = "https://github.com/giusparsifal/ComfyUI-Upscaler-Filename#readme"
+"Bug Tracker" = "https://github.com/giusparsifal/ComfyUI-Upscaler-Filename/issues"
+
+[tool.comfy]
+PublisherId = "giusparsifal"
+DisplayName = "Upscaler Filename"
