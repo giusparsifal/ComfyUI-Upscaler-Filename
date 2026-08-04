@@ -12,6 +12,8 @@ import os
 import re
 from typing import Tuple
 
+from comfy import model_management
+import comfy.model_patcher
 import comfy.utils
 import folder_paths
 from spandrel import ImageModelDescriptor, ModelLoader
@@ -97,6 +99,15 @@ class UpscaleModelLoaderWithFilename:
         model = ModelLoader().load_from_state_dict(state_dict).eval()
         if not isinstance(model, ImageModelDescriptor):
             raise ValueError("Upscale model must be a single-image model.")
+
+        # ComfyUI 0.30+ manages upscale models through a CoreModelPatcher.
+        # Keep the descriptor expected by ImageUpscaleWithModel and attach the
+        # patcher exactly as ComfyUI's built-in UpscaleModelLoader does.
+        model.patcher = comfy.model_patcher.CoreModelPatcher(
+            model.model,
+            load_device=model_management.get_torch_device(),
+            offload_device=model_management.unet_offload_device(),
+        )
 
         return model
 
